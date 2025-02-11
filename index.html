@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .kotak {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .judul{
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        img {
+            display: none;
+            max-width: 100px; 
+            max-height: 100px;
+        }
+        #pilihanBangun{
+            margin-bottom: 25px;
+            padding: 8px;  
+            font-size: 16px; 
+            border: 1px solid #ccc;  
+            border-radius: 5px;
+            
+        }
+
+        input {
+            width: 50%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border-radius: 10px;
+        }
+
+        button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 20px;
+            background: #f23dc4;
+            color: #fff;
+            border-radius: 40px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #hasil {
+            margin-top: 16px;
+            font-weight: bold;
+        }
+
+        #riwayatLink {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        #riwayatLink a {
+            color: #007BFF;
+            cursor: pointer;
+        }
+
+        #inputBalok {
+            display: none;
+        }
+
+        #resetButton {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 8px 20px;
+            background: #f11c1c;
+            color: #fff;
+            border-radius: 40px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        #resetButton:hover {
+            background-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="kotak">
+        <h2 class="judul">KUBUS & BALOK</h2> <br>
+        <label for="bangun"><h4>Pilih Bangun Ruang</h4></label> 
+        <select name="bangun" id="pilihanBangun" onchange="tampilkanInput()">
+            <option value="kubus">Kubus </option>
+            <option value="balok">Balok </option>
+
+        </select>
+        <br>
+        <div id="inputKubus">
+            <label>Masukkan panjang sisi kubus</label>
+            <input type="number" id="sisiKubus">
+        </div>
+
+        <div id="inputBalok">
+            <label>Masukkan panjang balok</label>
+            <input type="number" id="panjangBalok">
+            <label>Masukkan lebar balok</label>
+            <input type="number" id="lebarBalok">
+            <label>Masukkan tinggi balok</label>
+            <input type="number" id="tinggiBalok">
+        </div>
+
+        <button onclick="hitungVolume()">Hitung Volume</button> <br>
+        <button id="resetButton" onclick="resetInput()">Reset</button>
+        
+        <div id="hasil"></div>
+
+    </div>
+
+
+        <script>
+            function tampilkanInput() {
+                var pilihanBangun = document.getElementById("pilihanBangun");
+                var inputKubus = document.getElementById("inputKubus");
+                var inputBalok = document.getElementById("inputBalok");
+    
+                if (pilihanBangun.value === "kubus") {
+                    inputKubus.style.display = "block";
+                    inputBalok.style.display = "none";
+                } else if (pilihanBangun.value === "balok") {
+                    inputKubus.style.display = "none";
+                    inputBalok.style.display = "block";
+                }
+            }
+    
+            function resetInput() {
+                document.getElementById("sisiKubus").value = "";
+                document.getElementById("panjangBalok").value = "";
+                document.getElementById("lebarBalok").value = "";
+                document.getElementById("tinggiBalok").value = "";
+                document.getElementById("hasil").textContent = "";
+            }
+    
+            function hitungVolume() {
+                var pilihanBangun = document.getElementById("pilihanBangun").value;
+                var hasil = document.getElementById("hasil");
+                var volume;
+    
+                if (pilihanBangun === "kubus") {
+                    var sisiKubus = parseFloat(document.getElementById("sisiKubus").value);
+                    volume = sisiKubus * sisiKubus * sisiKubus;
+                } else if (pilihanBangun === "balok") {
+                    var panjangBalok = parseFloat(document.getElementById("panjangBalok").value);
+                    var lebarBalok = parseFloat(document.getElementById("lebarBalok").value);
+                    var tinggiBalok = parseFloat(document.getElementById("tinggiBalok").value);
+                    volume = panjangBalok * lebarBalok * tinggiBalok;
+                }
+    
+                if (!isNaN(volume)) {
+                    hasil.textContent = "Volume " + pilihanBangun + " adalah: " + volume + "cm^3";
+                } else {
+                    hasil.textContent = "Mohon masukkan angka yang valid.";
+                }
+            }
+    
+    
+            function tampilkanInputOutput() {
+                var pilihanBangun = document.getElementById("pilihanBangun").value;
+                var hasil = document.getElementById("hasil").textContent;
+        
+                if (hasil !== "") {
+                    var riwayatPenghitungan = pilihanBangun + ": " + hasil;
+                }
+            }
+        </script>
+
+ 
+</body>
+</html>
